@@ -1,7 +1,8 @@
 // src/App.tsx
 import { useState } from 'react';
-import { Box, Container, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-import { FileUploadZone } from './components/FileUploadZone';
+import { Box, Container, CssBaseline, ThemeProvider, createTheme, Typography } from '@mui/material';
+import type { FileMetadata } from './types';
+import FileUploadZone from './components/FileUploadZone';
 import { FileList } from './components/FileList';
 import { processFile } from './services/fileProcessor';
 
@@ -22,7 +23,7 @@ const theme = createTheme({
 
 function App() {
   const [files, setFiles] = useState<FileMetadata[]>([]);
-  const [isUploading, setIsUploading] = useState(false);
+  const [isUploading] = useState(false);
 
   const handleFilesAdded = async (newFiles: File[]) => {
     const newFileItems = newFiles.map(file => ({
@@ -81,12 +82,12 @@ function App() {
             Document Processor
           </Typography>
           <Typography variant="body1" color="text.secondary" paragraph>
-            Upload and process CSV, PDF, and TXT files to extract structured data
+            Upload and process documents to extract structured data
           </Typography>
         </Box>
 
         <Box sx={{ mb: 4 }}>
-          <FileUploadZone 
+<FileUploadZone 
             onFilesAdded={handleFilesAdded} 
             isUploading={isUploading} 
           />
@@ -96,6 +97,6 @@ function App() {
       </Container>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
